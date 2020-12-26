@@ -64,13 +64,29 @@ class Gmail{
         }
     } while($pageToken);
 
+    $j = 0;
+    $decoded_msg = array();
     foreach ($messages as $message){
-        print 'Message with ID: ' . $message->getId() . '<br/>';
+        //print 'Message with ID: ' . $message->getId() . '<br/>';
         $msg = $service->users_messages->get($userId, $message->getId());
-        echo "<pre>".var_export($msg->payload->parts[1]->body->data, true)."</pre>";
+        $parts = $msg->getPayload()->getParts();
+        //echo "<pre>".var_export($parts, true)."</pre>";
+
+        if(count($parts) > 0) {
+            $data = $parts[0]->getBody()->getData(); //note in video $data = $parts[1]->getBody()->getData();
+        }else{
+            $data = $msg->getPayload()->getBody()->getData();
+        }
+        $out = str_replace("-","+",$data);
+        $out = str_replace("_","/",$out);
+        $decoded_msg[] = base64_decode($out);
+        //echo "<pre>".var_export($msg->payload->parts[1]->body->data, true)."</pre>";
+        echo "<pre>".var_export($data, true)."</pre>";
+        $j++;
+        if($j == 10) {break;}
     }
 
-    return $messages;
+    return $decoded_msg;
     }
 
 }

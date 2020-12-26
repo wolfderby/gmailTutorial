@@ -23,6 +23,7 @@ class Yoyo {
             return $gmail->listMessages();
         }
         else {
+            //return "<p>test success</p>";
             return $conn->get_unauthenticated_data();
         }
     }
@@ -30,6 +31,9 @@ class Yoyo {
 }
 
 $yoyo = new Yoyo();
-echo "<!DOCTYPE html><html>";
-echo $yoyo->go();
-echo "</html>";
+
+$out = $yoyo->go();
+
+foreach($out as $disp){
+    echo $disp;
+}
