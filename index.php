@@ -19,7 +19,8 @@ class Yoyo {
             //
             require_once("gmail.php");
             $gmail = new Gmail($conn->get_client());
-            return $gmail->readLabels();
+            //return $gmail->readLabels();
+            return $gmail->listMessages();
         }
         else {
             return $conn->get_unauthenticated_data();
