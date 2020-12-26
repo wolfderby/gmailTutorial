@@ -15,14 +15,16 @@ class Gmail{
         $user = 'me';
         $results = $service->users_labels->listUsersLabels($user);
 
+        $the_html = "";
         if (count($results->getLabels()) == 0) {
-            print "No labels found.\n";
+            $the_html .= "<p>No labels found.</p>";
         } else {
-            print "Labels:\n";
+            $the_html .= "<p>Labels:</p>";
             foreach ($results->getLabels() as $label) {
-                printf("- %s\n", $label->getName());
+                $the_html .= "<p>".$label->getName()."</p>";
             }
         }
+        return $the_html;
     }
 
 }
