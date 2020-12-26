@@ -6,8 +6,12 @@ class Yoyo {
         $this->include();
     }
 
+    private function include() {
+        require __DIR__ . '/vendor/autoload.php';
+        include "connection.php";
+    }
 
-    private function go()
+    public function go()
     {
         $conn = new Connection();
 
