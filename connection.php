@@ -22,7 +22,7 @@ public function is_connected () {
 
 public function get_unauthenticated_data () {
     // Request authorization from the user.
-    $authUrl = $client->createAuthUrl();
+    $authUrl = $this->client->createAuthUrl();
     return "<a href='$authUrl'>Click here to link your account</a>";
 }
 
